@@ -32,6 +32,23 @@
     <input v-model="transferSum" placeholder="Transfer amount"/>
     <button v-on:click="transferMoney()">SUBMIT</button>
     {{ transfer }}
+    <h1>List of all accounts</h1>
+    {{ accounts }}
+    <table>
+      <tr>
+        <th>Account number</th>
+        <th>Account owner</th>
+        <th>Balance</th>
+        <th>Locked/unlocked status</th>
+      </tr>
+      <tr v-for="allAccounts in accounts">
+        <td>{{ allAccounts.accountNo }}</td>
+        <td>{{ allAccounts.accountName }}</td>
+        <td>{{ allAccounts.balance }}</td>
+        <td>{{ allAccounts.locked }}</td>
+        <td>{{ allAccounts }}</td>
+      </tr>
+    </table>
   </div>
 </template>
 <script>
@@ -57,7 +74,8 @@ export default {
       'accountNumber3': '',
       'accountNumber4': '',
       'transferSum': '',
-      'transfer': ''
+      'transfer': '',
+      accounts: []
     }
   },
   methods: {
@@ -122,7 +140,7 @@ export default {
           })
     },
     'transferMoney': function () {
-      this.$http.get('http://localhost:8080/transferMoney4/'+this.accountNumber3+"/"+this.accountNumber4+"/"+this.transferSum)
+      this.$http.get('http://localhost:8080/transferMoney4/' + this.accountNumber3 + "/" + this.accountNumber4 + "/" + this.transferSum)
           .then(response => {
             console.log(response);
             this.transfer = response.data
@@ -130,7 +148,12 @@ export default {
           .catch(response => {
             alert("Account doesn´t exist")
           })
-    }
+    },
+  },
+  mounted() {
+    this.$http.get("http://localhost:8080/allAccounts")
+        .then(response => this.accounts = response.data)
   }
 }
+
 </script>
