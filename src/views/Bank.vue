@@ -33,7 +33,7 @@
     <button v-on:click="transferMoney()">SUBMIT</button>
     {{ transfer }}
     <h1>List of all accounts</h1>
-    {{ accounts }}
+    {{ accounts }}    <!-- Kui ei taha kuvada arrayna pealkirja alla, siis võta see välja -->
     <table>
       <tr>
         <th>Account number</th>
@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     'getAccountBalance': function () {
-      this.$http.get('http://localhost:8080/getBalance4/' + this.accountNumber)
+      this.$http.get('/api/getBalance4/' + this.accountNumber)
           .then(response => {
             console.log(response);
             this.balance = response.data
@@ -90,7 +90,7 @@ export default {
           })
     },
     'createAccount': function () {
-      this.$http.post('http://localhost:8080/createAccount4/' + this.accountNumber0 + "/" + this.accountName + "/" + this.initialBalance)
+      this.$http.post('/api/createAccount4/' + this.accountNumber0 + "/" + this.accountName + "/" + this.initialBalance)
           .then(response => {
             console.log(response);
             this.create = response.data
@@ -100,7 +100,7 @@ export default {
           })
     },
     'lockAccount': function () {
-      this.$http.put('http://localhost:8080/lock4/' + this.accountNumber9)
+      this.$http.put('/api/lock4/' + this.accountNumber9)
           .then(response => {
             console.log(response);
             this.lock = "Account locked"
@@ -110,7 +110,7 @@ export default {
           })
     },
     'unlockAccount': function () {
-      this.$http.put('http://localhost:8080/unlock4/' + this.accountNumber9)
+      this.$http.put('/api/unlock4/' + this.accountNumber9)
           .then(response => {
             console.log(response);
             this.unlock = "Account unlocked"
@@ -120,7 +120,7 @@ export default {
           })
     },
     'withdrawMoney': function () {
-      this.$http.get('http://localhost:8080/withdrawMoney4/' + this.accountNumber1 + "/" + this.withdrawSum)
+      this.$http.get('/api/withdrawMoney4/' + this.accountNumber1 + "/" + this.withdrawSum)
           .then(response => {
             console.log(response);
             this.withdraw = response.data
@@ -130,7 +130,7 @@ export default {
           })
     },
     'depositMoney': function () {
-      this.$http.put('http://localhost:8080/depositMoney4/' + this.accountNumber2 + "/" + this.depositSum)
+      this.$http.put('/api/depositMoney4/' + this.accountNumber2 + "/" + this.depositSum)
           .then(response => {
             console.log(response);
             this.deposit = response.data
@@ -140,7 +140,7 @@ export default {
           })
     },
     'transferMoney': function () {
-      this.$http.get('http://localhost:8080/transferMoney4/' + this.accountNumber3 + "/" + this.accountNumber4 + "/" + this.transferSum)
+      this.$http.get('/api/transferMoney4/' + this.accountNumber3 + "/" + this.accountNumber4 + "/" + this.transferSum)
           .then(response => {
             console.log(response);
             this.transfer = response.data
@@ -151,7 +151,7 @@ export default {
     },
   },
   mounted() {
-    this.$http.get("http://localhost:8080/allAccounts")
+    this.$http.get("/api/allAccounts")
         .then(response => this.accounts = response.data)
   }
 }

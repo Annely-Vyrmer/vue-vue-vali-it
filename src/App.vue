@@ -4,6 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/bank">Bank</router-link> |
+      <router-link to="/allaccounts">All accounts</router-link> |
+      <router-link to="/banklogin">Bank LOGIN</router-link> |
       <router-link to="/register">Register</router-link>
     </div>
     <router-view/>
